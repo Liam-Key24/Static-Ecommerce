@@ -1,0 +1,47 @@
+export const products = [
+  {
+    id: 1,
+    name: "Utility Jacket",
+    price: 189.99,
+    image: "/img-content/stow-kelly-h8MOrKq3dQw-unsplash.jpg",
+    category: "Outerwear",
+    size: ["S", "M", "L", "XL"],
+    color: "Black",
+    material: "Cotton",
+    description: "Comfortable and stylish utility jacket for everyday use.",
+  },
+  {
+    id: 2,
+    name: "Cargo Pants",
+    price: 149.99,
+    image: "/img-content/philip-martin-D6MmPV6SHqg-unsplash.jpg",
+    category: "Bottoms",
+    size: ["S", "M", "L", "XL"],
+    color: "Olive",
+    material: "Nylon",
+    description: "Comfortable and stylish cargo pants for everyday use.",
+  },
+  {
+    id: 3,
+    name: "Hooded Vest",
+    price: 129.99,
+    image: "/img-content/sinitta-leunen-zKlUaEzp0-0-unsplash.jpg",
+    category: "Outerwear",
+    size: ["S", "M", "L", "XL"],
+    color: "Gray",
+    material: "Polyester",
+    description: "Comfortable and stylish hooded vest for everyday use.",
+    
+  },
+  {
+    id: 4,
+    name: "Tech Pants",
+    price: 159.99,
+    image: "/img-content/dawid-olejniczak-z9rzNhKD47M-unsplash.jpg",
+    category: "Bottoms",
+    size: ["S", "M", "L", "XL"],
+    color: "Black",
+    material: "Polyester",
+    description: "Comfortable and stylish tech pants for everyday use.",
+  }
+]
