@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image"
+import React from 'react'
 import { useCart } from '../context/CartContext'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/footer'
@@ -14,7 +15,7 @@ export default function CartPage() {
     <>
       <Navbar />
       <div className="pt-24 px-4 pb-12">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl min-h-[40em] md:min-h-[100em] mx-auto">
           <h1 className="text-4xl font-bold text-white mb-8">Shopping Cart</h1>
           {cartItems.length === 0 ? (
             <p className="text-zinc-400">Your cart is empty</p>

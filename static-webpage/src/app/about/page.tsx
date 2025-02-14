@@ -1,47 +1,32 @@
-import { SiteLayout } from "@/components/site-layout"
+
 import Image from "next/image"
+import React, { } from "react"
+import { Navbar } from "../components/Navbar"
+import { Footer } from "../components/footer"
 
 export default function AboutPage() {
   return (
-    <SiteLayout>
-      <div className="pt-24 px-4 pb-12">
-        <div className="max-w-3xl mx-auto space-y-12">
-          <div className="space-y-4">
-            <h1 className="text-4xl font-bold text-white">About Static</h1>
-            <p className="text-zinc-400 text-lg leading-relaxed">
-              Static is a contemporary fashion brand that combines minimalist design with functional elements. 
-              Our pieces are crafted for those who appreciate both form and function in their wardrobe.
-            </p>
-          </div>
-          
-          <div className="relative aspect-video rounded-lg overflow-hidden">
-            <Image
-              src="/placeholder.svg?height=600&width=1200"
-              alt="About Static"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-white">Our Mission</h2>
-              <p className="text-zinc-400">
-                We believe in creating timeless pieces that last, both in style and durability. 
-                Our commitment to sustainable practices and ethical manufacturing sets us apart.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-white">Our Process</h2>
-              <p className="text-zinc-400">
-                Each piece is thoughtfully designed and rigorously tested to ensure it meets our high standards 
-                of quality and functionality.
-              </p>
-            </div>
-          </div>
+    <>
+      <Navbar />
+      <div className="container mx-auto px-4 min-h-screen grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div className="w-full p-6">
+          <h2 className="text-white text-2xl md:text-3xl leading-relaxed">
+            Passionate about art, and art is passionate to make. motto i just made filling this silly paragrah with words. 
+          </h2>
+        </div>
+        <div className="w-full p-6 flex justify-center">
+          <Image
+            width={400}
+            height={300}
+            src="/img-content/stow-kelly-uDfmJ8tijCY-unsplash.jpg"
+            alt="about"
+            className="rounded-lg"
+          />
         </div>
       </div>
-    </SiteLayout>
+      <Footer />
+    </>
+
   )
 }
 

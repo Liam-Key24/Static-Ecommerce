@@ -31,7 +31,7 @@ export default function ShopPage() {
       <div className="my-10">
         <div className="max-w-7xl mx-auto px-4">
           <section className="w-full h-80 flex flex-col justify-center">
-            <h1 className="text-4xl font-bold text-white mb-8">Shop Collection</h1>
+            <h1 className="md:text-8xl font-bold text-white mb-8">Shop Collection</h1>
             <div className="inline-flex gap-4 flex-wrap">
               <select
                 value={selectedSize}
@@ -84,7 +84,7 @@ export default function ShopPage() {
                 setSelectedMaterial('')
                 setSelectedCategory('')
               }}
-              className="bg-black text-white border border-zinc-700 rounded-md px-4 py-2 hover:border-yellow-400 transition-colors"
+              className="bg-yellow-400 text-black border border-zinc-700 rounded-md px-4 py-2 hover:border-yellow-400 transition-colors"
             >
               Reset Filters
             </button>

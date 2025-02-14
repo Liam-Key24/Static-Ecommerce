@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/klarissa');
+@import url('https://fonts.cdnfonts.com/css/varuna');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,5 +20,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Varuna', sans-serif;
 }
+
+
