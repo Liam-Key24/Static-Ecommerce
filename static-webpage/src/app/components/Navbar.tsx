@@ -3,9 +3,15 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { ShoppingCart, Menu } from "lucide-react"
+import { useCartStore } from '../context/cartCount'
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const totalQuantity = useCartStore((state) =>
+    state.items && state.items.length > 0
+      ? state.items.reduce((acc, item) => acc + (item.quantity || 0), 0)
+      : 0
+  );
 
   return (  
     <nav className='relative w-full'>
@@ -14,7 +20,7 @@ export function Navbar() {
           <Link href='/shop' className='hover:text-yellow-400 hover:-translate-y-1 transition-all duration-300 ease-in-out'>
             <p>Shop</p>
           </Link>
-          <Link href='/shop' className='hover:text-yellow-400 hover:-translate-y-1 transition-all duration-300 ease-in-out'>
+          <Link href='/about' className='hover:text-yellow-400 hover:-translate-y-1 transition-all duration-300 ease-in-out'>
             <p>About</p>
           </Link>
           <Link href='/shop' className='hover:text-yellow-400 hover:-translate-y-1 transition-all duration-300 ease-in-out'>
@@ -29,8 +35,17 @@ export function Navbar() {
         </div>
         
         <div className='flex items-center justify-center space-x-4 w-1/3'>
-            <ShoppingCart className='w-6 h-6 cursor-pointer hover:text-gray-600 transition-colors'/>
-        
+          <Link href='/cart'>
+          <div className="relative inline-block">
+      <ShoppingCart className="w-8 h-8 text-gray-800" />
+      {totalQuantity > 0 && (
+        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+          {totalQuantity}
+        </span>
+      )}
+    </div>
+          </Link>
+    
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className='md:hidden'

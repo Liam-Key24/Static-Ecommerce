@@ -2,18 +2,24 @@
 'use client'
 
 import Image from "next/image"
-import { notFound } from "next/navigation"
+import { notFound, useParams } from "next/navigation"
 import { useState } from "react"
+import React from "react"
 import { Navbar } from "../../components/Navbar"
 import { Footer } from "../../components/footer"
-
+import { useCart } from "../../context/CartContext"
 import { products } from "../../data/products"
+import { useCartStore } from "@/app/context/cartCount";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = products.find(p => p.id === parseInt(params.id))
+export default function ProductPage(){
+  const addCountToCart = useCartStore((state) => state.addToCart);
+  const { addToCart } = useCart();  // Move this to the top with other hooks
+  const params = useParams();
+  const product = products.find(p => p.id === parseInt(params.id as string));
   const [selectedSize, setSelectedSize] = useState('')
   const [quantity, setQuantity] = useState(1)
   
+
   if (!product) {
     notFound()
   }
@@ -71,12 +77,38 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       +
     </button>
   </div>
-                <button 
-                  className="w-1/2 rounded p-4 bg-yellow-400 text-black hover:bg-yellow-300 "
-                  onClick={() => alert('Added to cart!')}
-                >
-                  Add to Cart
-                </button>
+    
+  <div className="hidden " id="cart-msg">
+    <h1>Added to Cart</h1>
+  </div>
+<button 
+  className="w-1/2 rounded p-4 bg-yellow-400 text-black hover:bg-yellow-300"
+  id="cart-button"
+  onClick={() => {
+    if (!selectedSize) {
+      alert('Please select a size');
+      return;
+    }
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      size: selectedSize,
+      quantity: quantity,
+      image: product.image || '/placeholder.svg'
+    };
+    addToCart(cartItem);
+    document.getElementById('cart-msg')?.classList.remove('hidden');
+    document.getElementById('cart-button')?.classList.add('hidden');
+    setTimeout(() => {
+      document.getElementById('cart-msg')?.classList.add('hidden');
+      document.getElementById('cart-button')?.classList.remove('hidden');
+    }, 3000);
+    addCountToCart({ ...cartItem, id: cartItem.id.toString() })
+  }}
+>
+  Add to Cart
+</button>
 </div>
                 </div>
               </div>

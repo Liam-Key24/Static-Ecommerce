@@ -5,17 +5,23 @@ import React from 'react'
 import { useCart } from '../context/CartContext'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/footer'
+import { useCartStore } from '../context/cartCount'
 
 export default function CartPage() {
   const { cartItems, updateQuantity, removeItem } = useCart()
+  const removeCountFromCart = useCartStore((state) => state.removeFromCart);
+  const addCountToCart = useCartStore((state) => state.addToCart);  // Add this line
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
 
   return (
     <>
       <Navbar />
       <div className="pt-24 px-4 pb-12">
         <div className="max-w-3xl min-h-[40em] md:min-h-[100em] mx-auto">
+          
           <h1 className="text-4xl font-bold text-white mb-8">Shopping Cart</h1>
           {cartItems.length === 0 ? (
             <p className="text-zinc-400">Your cart is empty</p>
@@ -42,21 +48,40 @@ export default function CartPage() {
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => {
+                            updateQuantity(item.id, item.quantity - 1)
+                            addCountToCart({
+                              id: item.id.toString(),
+                              name: item.name,
+                              price: item.price,
+                              quantity: item.quantity - 1
+                            })
+                          }}
                           className="h-8 w-8 text-white hover:bg-zinc-700 rounded"
                         >
                           -
                         </button>
                         <span className="text-white w-8 text-center">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => {
+                            updateQuantity(item.id, item.quantity + 1)
+                            addCountToCart({
+                              id: item.id.toString(),
+                              name: item.name,
+                              price: item.price,
+                              quantity: item.quantity + 1
+                            })
+                          }}
                           className="h-8 w-8 text-white hover:bg-zinc-700 rounded"
                         >
                           +
                         </button>
                       </div>
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => {
+                          removeItem(item.id);
+                          removeFromCart(item.id.toString());
+                        }}
                         className="text-zinc-400 hover:text-white"
                       >
                         Remove
