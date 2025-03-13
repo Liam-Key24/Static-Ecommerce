@@ -3,15 +3,11 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { ShoppingCart, Menu } from "lucide-react"
-import { useCartStore } from '../context/cartCount'
+import { useCartStore } from '../context/CartStore'  // Updated import
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const totalQuantity = useCartStore((state) =>
-    state.items && state.items.length > 0
-      ? state.items.reduce((acc, item) => acc + (item.quantity || 0), 0)
-      : 0
-  );
+  const cartCount = useCartStore((state) => state.getCartCount())  // Using the new getCartCount method
 
   return (  
     <nav className='relative w-full'>
@@ -36,14 +32,14 @@ export function Navbar() {
         
         <div className='flex items-center justify-center space-x-4 w-1/3'>
           <Link href='/cart'>
-          <div className="relative inline-block">
-      <ShoppingCart className="w-8 h-8 text-gray-800" />
-      {totalQuantity > 0 && (
-        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-          {totalQuantity}
-        </span>
-      )}
-    </div>
+            <div className="relative inline-block">
+              <ShoppingCart className="w-8 h-8 text-gray-800" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {cartCount}
+                </span>
+              )}
+            </div>
           </Link>
     
           <button

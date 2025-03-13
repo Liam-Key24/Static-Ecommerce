@@ -1,18 +1,25 @@
 'use client'
 
-import { CartProvider } from './context/CartContext'
 import "./globals.css";
+import { useEffect, useState } from "react";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-          {children}
-        </CartProvider>
+        <main>
+          {isClient ? children : null}
+        </main>
       </body>
     </html>
   )

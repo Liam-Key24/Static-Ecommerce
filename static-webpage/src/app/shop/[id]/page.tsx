@@ -7,21 +7,40 @@ import { useState } from "react"
 import React from "react"
 import { Navbar } from "../../components/Navbar"
 import { Footer } from "../../components/footer"
-import { useCart } from "../../context/CartContext"
+import { useCartStore } from "../../context/CartStore"
 import { products } from "../../data/products"
-import { useCartStore } from "@/app/context/cartCount";
 
 export default function ProductPage(){
-  const addCountToCart = useCartStore((state) => state.addToCart);
-  const { addToCart } = useCart();  // Move this to the top with other hooks
+  const { addToCart } = useCartStore()
   const params = useParams();
   const product = products.find(p => p.id === parseInt(params.id as string));
   const [selectedSize, setSelectedSize] = useState('')
   const [quantity, setQuantity] = useState(1)
   
-
   if (!product) {
     notFound()
+  }
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert('Please select a size');
+      return;
+    }
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      size: selectedSize,
+      quantity: quantity,
+      image: product.image || '/placeholder.svg'
+    };
+    addToCart(cartItem);
+    document.getElementById('cart-msg')?.classList.remove('hidden');
+    document.getElementById('cart-button')?.classList.add('hidden');
+    setTimeout(() => {
+      document.getElementById('cart-msg')?.classList.add('hidden');
+      document.getElementById('cart-button')?.classList.remove('hidden');
+    }, 3000);
   }
 
   return (
@@ -84,28 +103,7 @@ export default function ProductPage(){
 <button 
   className="w-1/2 rounded p-4 bg-yellow-400 text-black hover:bg-yellow-300"
   id="cart-button"
-  onClick={() => {
-    if (!selectedSize) {
-      alert('Please select a size');
-      return;
-    }
-    const cartItem = {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      size: selectedSize,
-      quantity: quantity,
-      image: product.image || '/placeholder.svg'
-    };
-    addToCart(cartItem);
-    document.getElementById('cart-msg')?.classList.remove('hidden');
-    document.getElementById('cart-button')?.classList.add('hidden');
-    setTimeout(() => {
-      document.getElementById('cart-msg')?.classList.add('hidden');
-      document.getElementById('cart-button')?.classList.remove('hidden');
-    }, 3000);
-    addCountToCart({ ...cartItem, id: cartItem.id.toString() })
-  }}
+  onClick={handleAddToCart}
 >
   Add to Cart
 </button>
